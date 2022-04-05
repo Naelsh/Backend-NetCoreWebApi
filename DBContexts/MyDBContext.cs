@@ -11,6 +11,7 @@ namespace WebApi.DBContexts
     public class MyDBContext : DbContext
     {
         public DbSet<User> Users { get; set; }
+        public DbSet<EventItem> EventItems { get; set; }
 
         public MyDBContext(DbContextOptions<MyDBContext> options) : base(options)
         {
