@@ -44,6 +44,14 @@ public class EventController : ControllerBase
     }
 
     [AllowAnonymous]
+    [HttpPost]
+    public IActionResult Post(PostRequest model)
+    {
+        _eventService.Post(model);
+        return Ok(new {message = "Post created successfully"});
+    }
+
+    [AllowAnonymous]
     [HttpPut("{id}")]
     public IActionResult Update(int id, UpdateRequest model)
     {
