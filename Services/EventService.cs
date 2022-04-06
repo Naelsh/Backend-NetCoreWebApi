@@ -40,7 +40,7 @@ public class EventService : IEventService
     public void Post(PostRequest model)
     {
         // validate
-        if (DateTime.Compare(model.StartDate, model.EndDate) < 1)
+        if (DateTime.Compare(model.StartDate, model.EndDate) > 0)
             throw new AppException("Event '" + model.Title + "' start date after end date");
 
         // map model to new event object
