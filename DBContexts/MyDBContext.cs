@@ -13,19 +13,38 @@ namespace WebApi.DBContexts
         public DbSet<User> Users { get; set; }
         public DbSet<EventItem> EventItems { get; set; }
 
+
         public MyDBContext(DbContextOptions<MyDBContext> options) : base(options)
         {
         }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            //Laptop
+            string connectionString = @"Data Source=DESKTOP-EJ7V12L\SQLEXPRESS01;" +
+                @"Initial Catalog = ASPWebAPI;" +
+                @"Integrated Security=true";
+
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer(connectionString);
+            }
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Use Fluent API to configure  
+            // Use Fluent API to configure
 
             // Map entities to tables  
             //modelBuilder.Entity<UserGroup>().ToTable("UserGroups");
             modelBuilder.Entity<User>().ToTable("Users");
+            SetupEventItems(modelBuilder);
+        }
 
-            
+        private void SetupEventItems(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<EventItem>().Property(t => t.StartDate).IsRequired();
+            modelBuilder.Entity<EventItem>().Property(t => t.EndDate).IsRequired();
         }
     }
 }
