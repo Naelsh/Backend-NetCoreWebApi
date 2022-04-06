@@ -15,8 +15,8 @@ public class EventItem
     [Required]
     public DateTime EndDate { get; set; }
 
-    [Required]
-    public User Creator { get; set; }
-    public List<User> Admins { get; set; } = new List<User>();
-    public List<User> Participants { get; set; } = new List<User>();
+    //[Required]
+    //public User Creator { get; set; }
+    //public List<User> Admins { get; set; } = new List<User>();
+    //public List<User> Participants { get; set; } = new List<User>();
 }
