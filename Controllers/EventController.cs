@@ -10,7 +10,7 @@ using WebApi.Services;
 
 [Authorize]
 [ApiController]
-[Route("[controller]")]
+[Route("controller/event")]
 public class EventController : ControllerBase
 {
     private IEventService _eventService;
@@ -27,6 +27,7 @@ public class EventController : ControllerBase
         _appSettings = appSettings.Value;
     }
 
+    [AllowAnonymous]
     [HttpGet("{id}")]
     public IActionResult GetById(int id)
     {
@@ -34,6 +35,7 @@ public class EventController : ControllerBase
         return Ok(eventItem);
     }
 
+    [AllowAnonymous]
     [HttpGet]
     public IActionResult GetAll()
     {
@@ -41,6 +43,7 @@ public class EventController : ControllerBase
         return Ok(eventIItems);
     }
 
+    [AllowAnonymous]
     [HttpPut("{id}")]
     public IActionResult Update(int id, UpdateRequest model)
     {
@@ -48,6 +51,7 @@ public class EventController : ControllerBase
         return Ok(new { message = "Event updated successfully" });
     }
 
+    [AllowAnonymous]
     [HttpDelete("{id}")]
     public IActionResult Delete(int id)
     {

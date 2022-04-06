@@ -10,7 +10,7 @@ using WebApi.Services;
 
 [Authorize]
 [ApiController]
-[Route("[controller]")]
+[Route("controller/user")]
 public class UsersController : ControllerBase
 {
     private IUserService _userService;
