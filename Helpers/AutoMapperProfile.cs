@@ -4,6 +4,7 @@ using AutoMapper;
 using WebApi.Entities;
 using WebApi.Models.Events;
 using WebApi.Models.Users;
+using WebApi.Models.Posts;
 
 public class AutoMapperProfile : Profile
 {
@@ -29,7 +30,7 @@ public class AutoMapperProfile : Profile
             ));
 
         // PostRequest -> EventItem
-        CreateMap<PostRequest, EventItem>();
+        CreateMap<Models.Events.PostRequest, EventItem>();
 
         // UpdateRequest -> EventItem
         CreateMap<Models.Events.UpdateRequest, EventItem>()
@@ -44,5 +45,20 @@ public class AutoMapperProfile : Profile
                 }
             ));
 
+        // PostRequest -> PostItem
+        CreateMap<Models.Posts.PostRequest, PostItem>();
+
+        // UpdateRequest -> PostItem
+        CreateMap<Models.Posts.UpdateRequest, PostItem>()
+            .ForAllMembers(x => x.Condition(
+                (src, dest, prop) =>
+                {
+                    // ignore null & empty string properties
+                    if (prop == null) return false;
+                    if (prop.GetType() == typeof(string) && string.IsNullOrEmpty((string)prop)) return false;
+
+                    return true;
+                }
+            ));
     }
 }

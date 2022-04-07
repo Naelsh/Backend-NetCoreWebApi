@@ -29,6 +29,7 @@ var builder = WebApplication.CreateBuilder(args);
     services.AddScoped<IJwtUtils, JwtUtils>();
     services.AddScoped<IUserService, UserService>();
     services.AddScoped<IEventService, EventService>();
+    services.AddScoped<IPostService, PostService>();
 }
 
 var app = builder.Build();

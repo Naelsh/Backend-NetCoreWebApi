@@ -20,4 +20,5 @@ public class DataContext : DbContext
 
     public DbSet<User> Users { get; set; }
     public DbSet<EventItem> EventItems { get; set; }
+    public DbSet<PostItem> PostItems { get; set; }
 }
