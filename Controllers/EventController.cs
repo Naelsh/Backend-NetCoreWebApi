@@ -48,7 +48,7 @@ public class EventController : ControllerBase
     public IActionResult Post(PostRequest model)
     {
         _eventService.Post(model);
-        return Ok(new {message = "Post created successfully"});
+        return Ok(new {message = "Event created successfully"});
     }
 
     [AllowAnonymous]
@@ -64,6 +64,6 @@ public class EventController : ControllerBase
     public IActionResult Delete(int id)
     {
         _eventService.Delete(id);
-        return Ok(new {message = "User deleted successfully"});
+        return Ok(new {message = "Event deleted successfully"});
     }
 }
