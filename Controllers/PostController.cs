@@ -43,7 +43,6 @@ public class PostController : ControllerBase
         return Ok(postItems);
     }
 
-    [AllowAnonymous]
     [HttpPost]
     public IActionResult Post(PostRequest model)
     {
@@ -51,7 +50,6 @@ public class PostController : ControllerBase
         return Ok(new { message = "Post created successfully" });
     }
 
-    [AllowAnonymous]
     [HttpPut("{id}")]
     public IActionResult Update(int id, UpdateRequest model)
     {
@@ -59,7 +57,6 @@ public class PostController : ControllerBase
         return Ok(new { message = "Post updated successfully" });
     }
 
-    [AllowAnonymous]
     [HttpDelete("{id}")]
     public IActionResult Delete(int id)
     {

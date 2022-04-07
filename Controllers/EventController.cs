@@ -43,7 +43,6 @@ public class EventController : ControllerBase
         return Ok(eventIItems);
     }
 
-    [AllowAnonymous]
     [HttpPost]
     public IActionResult Post(PostRequest model)
     {
@@ -51,7 +50,6 @@ public class EventController : ControllerBase
         return Ok(new {message = "Event created successfully"});
     }
 
-    [AllowAnonymous]
     [HttpPut("{id}")]
     public IActionResult Update(int id, UpdateRequest model)
     {
@@ -59,7 +57,6 @@ public class EventController : ControllerBase
         return Ok(new { message = "Event updated successfully" });
     }
 
-    [AllowAnonymous]
     [HttpDelete("{id}")]
     public IActionResult Delete(int id)
     {
