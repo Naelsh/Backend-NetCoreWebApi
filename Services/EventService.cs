@@ -4,6 +4,7 @@ using AutoMapper;
 using WebApi.Entities;
 using WebApi.Helpers;
 using WebApi.Models.Events;
+using WebApi.Views;
 
 public interface IEventService
 {
@@ -12,6 +13,7 @@ public interface IEventService
     void Post(PostRequest model);
     void Update(int id, UpdateRequest model);
     void Delete(int id);
+    EventDetailView GetDetailById(int id);
 }
 
 public class EventService : IEventService
@@ -70,6 +72,24 @@ public class EventService : IEventService
         var eventItem = GetEvent(id);
         _context.EventItems.Remove(eventItem);
         _context.SaveChanges();
+    }
+
+    public EventDetailView GetDetailById(int id)
+    {
+        return (from eventItem in _context.EventItems
+                           join author in _context.Users on eventItem.Author.Id equals author.Id
+                           select new EventDetailView
+                           {
+                               Id = eventItem.Id,
+                               Title = eventItem.Title,
+                               Description = eventItem.Description,
+                               StartDate = eventItem.StartDate,
+                               EndDate = eventItem.EndDate,
+                               AuthorId = author.Id,
+                               AuthorLastName = author.LastName,
+                               AuthorFirstName = author.FirstName,
+                           })
+                           .FirstOrDefault();
     }
 
     // helper methods

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebApi.Entities;
 public class EventItem
@@ -14,9 +15,11 @@ public class EventItem
     public DateTime StartDate { get; set; }
     [Required]
     public DateTime EndDate { get; set; }
+    public int AuthorId { get; set; }
 
-    //[Required]
-    //public User Creator { get; set; }
+    [Required]
+    [ForeignKey(nameof(AuthorId))]
+    public User Author { get; set; }
     //public List<User> Admins { get; set; } = new List<User>();
     //public List<User> Participants { get; set; } = new List<User>();
 }

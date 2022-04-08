@@ -16,4 +16,6 @@ public class User
 
     [JsonIgnore]
     public string PasswordHash { get; set; }
+
+    public List<EventItem> AuthorEvents { get; set; }
 }
