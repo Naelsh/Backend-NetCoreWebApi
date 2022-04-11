@@ -11,8 +11,8 @@ using WebApi.Helpers;
 namespace WebApi.Migrations.SqliteMigrations
 {
     [DbContext(typeof(SqliteDataContext))]
-    [Migration("20220408050731_eventauthor")]
-    partial class eventauthor
+    [Migration("20220411111028_restart")]
+    partial class restart
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,9 +23,6 @@ namespace WebApi.Migrations.SqliteMigrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("AuthorId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Description")
@@ -45,9 +42,25 @@ namespace WebApi.Migrations.SqliteMigrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AuthorId");
-
                     b.ToTable("EventItems");
+                });
+
+            modelBuilder.Entity("WebApi.Entities.EventUsers", b =>
+                {
+                    b.Property<int>("EventId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsHost")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("EventId", "UserId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("EventUsers");
                 });
 
             modelBuilder.Entity("WebApi.Entities.PostItem", b =>
@@ -94,20 +107,33 @@ namespace WebApi.Migrations.SqliteMigrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("WebApi.Entities.EventItem", b =>
+            modelBuilder.Entity("WebApi.Entities.EventUsers", b =>
                 {
-                    b.HasOne("WebApi.Entities.User", "Author")
-                        .WithMany("AuthorEvents")
-                        .HasForeignKey("AuthorId")
+                    b.HasOne("WebApi.Entities.EventItem", "EventItem")
+                        .WithMany("Attendees")
+                        .HasForeignKey("EventId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Author");
+                    b.HasOne("WebApi.Entities.User", "User")
+                        .WithMany("Events")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("EventItem");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("WebApi.Entities.EventItem", b =>
+                {
+                    b.Navigation("Attendees");
                 });
 
             modelBuilder.Entity("WebApi.Entities.User", b =>
                 {
-                    b.Navigation("AuthorEvents");
+                    b.Navigation("Events");
                 });
 #pragma warning restore 612, 618
         }
