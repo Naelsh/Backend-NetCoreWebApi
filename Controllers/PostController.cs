@@ -10,7 +10,7 @@ using WebApi.Services;
 
 [Authorize]
 [ApiController]
-[Route("controller/post")]
+[Route("[controller]")]
 public class PostController : ControllerBase
 {
     private IPostService _postService;

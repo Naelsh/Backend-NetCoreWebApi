@@ -29,9 +29,6 @@ public class AutoMapperProfile : Profile
                 }
             ));
 
-        // PostRequest -> EventItem
-        CreateMap<Models.Events.PostRequest, EventItem>();
-
         // UpdateRequest -> EventItem
         CreateMap<Models.Events.UpdateRequest, EventItem>()
             .ForAllMembers(x => x.Condition(
