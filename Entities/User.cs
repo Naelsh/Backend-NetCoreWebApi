@@ -16,4 +16,6 @@ public class User
 
     [JsonIgnore]
     public string PasswordHash { get; set; }
+
+    public ICollection<EventUsers> Events { get; set; }
 }

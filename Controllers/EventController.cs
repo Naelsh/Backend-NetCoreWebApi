@@ -10,7 +10,7 @@ using WebApi.Services;
 
 [Authorize]
 [ApiController]
-[Route("controller/event")]
+[Route("[controller]")]
 public class EventController : ControllerBase
 {
     private IEventService _eventService;
@@ -39,8 +39,15 @@ public class EventController : ControllerBase
     [HttpGet]
     public IActionResult GetAll()
     {
-        var eventIItems = _eventService.GetAll();
-        return Ok(eventIItems);
+        var eventItems = _eventService.GetAll();
+        return Ok(eventItems);
+    }
+
+    [HttpGet("details/{id}")]
+    public IActionResult GetDetailById(int id)
+    {
+        var eventItems = _eventService.GetDetailById(id);
+        return Ok(eventItems);
     }
 
     [HttpPost]
