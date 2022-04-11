@@ -22,6 +22,15 @@ public class DataContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         SetupEventUserRelationship(modelBuilder);
+        SetupPostItemUserRelationship(modelBuilder);
+    }
+
+    // this could be done automaticly since it is an easy relationship for EF Core to manage
+    private static void SetupPostItemUserRelationship(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<PostItem>()
+                    .HasOne(p => p.Author)
+                    .WithMany(a => a.Posts);
     }
 
     private static void SetupEventUserRelationship(ModelBuilder modelBuilder)
@@ -38,6 +47,8 @@ public class DataContext : DbContext
             .WithMany(u => u.Attendees)
             .HasForeignKey(aa => aa.EventId);
     }
+
+
 
     public DbSet<User> Users { get; set; }
     public DbSet<EventItem> EventItems { get; set; }

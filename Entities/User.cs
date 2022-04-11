@@ -18,4 +18,5 @@ public class User
     public string PasswordHash { get; set; }
 
     public ICollection<EventUsers> Events { get; set; }
+    public ICollection<PostItem> Posts { get; set; }
 }

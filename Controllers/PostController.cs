@@ -43,6 +43,14 @@ public class PostController : ControllerBase
         return Ok(postItems);
     }
 
+    [AllowAnonymous]
+    [HttpGet("details/{authorId}")]
+    public IActionResult GetDetailedById(int authorId)
+    {
+        var postItems = _postService.GetDetailedPostsForUserById(authorId);
+        return Ok(postItems);
+    }
+
     [HttpPost]
     public IActionResult Post(PostRequest model)
     {

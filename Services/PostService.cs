@@ -1,9 +1,11 @@
 ﻿namespace WebApi.Services;
 
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using WebApi.Entities;
 using WebApi.Helpers;
 using WebApi.Models.Posts;
+using WebApi.Views;
 
 public interface IPostService
 {
@@ -12,6 +14,7 @@ public interface IPostService
     void Post(PostRequest model);
     void Update(int id, UpdateRequest model);
     void Delete(int id);
+    IEnumerable<PostDetailView> GetDetailedPostsForUserById(int userId);
 }
 
 public class PostService : IPostService
@@ -45,6 +48,7 @@ public class PostService : IPostService
 
         // map model to new event object
         var postItem = _mapper.Map<PostItem>(model);
+        postItem.Author = _context.Users.FirstOrDefault(x => x.Id == model.AuthorID);
 
         // save event
         _context.PostItems.Add(postItem);
@@ -72,6 +76,22 @@ public class PostService : IPostService
         _context.SaveChanges();
     }
 
+    public IEnumerable<PostDetailView> GetDetailedPostsForUserById(int userId)
+    {
+        return (from post in _context.PostItems
+                     where post.Author.Id == userId
+                     select new PostDetailView
+                     {
+                         AuthorId = post.Author.Id,
+                         AuthorFirstName = post.Author.FirstName,
+                         AuthorLastName = post.Author.LastName,
+                         AuthorUserName = post.Author.Username,
+                         PostId = post.Id,
+                         PostContent = post.Content,
+                         PublishDate = post.PublishDate,
+                     });
+    }
+
     // helper methods
 
     private PostItem GetPost(int id)
@@ -80,4 +100,5 @@ public class PostService : IPostService
         if (postItem == null) throw new KeyNotFoundException("Event not found");
         return postItem;
     }
+
 }

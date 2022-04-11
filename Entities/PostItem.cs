@@ -9,5 +9,7 @@ namespace WebApi.Entities
         [Required]
         public string Content { get; set; }
         public DateTime PublishDate { get; set; }
+
+        public User Author { get; set; }
     }
 }
