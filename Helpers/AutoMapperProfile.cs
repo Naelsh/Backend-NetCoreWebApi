@@ -29,14 +29,6 @@ public class AutoMapperProfile : Profile
                 }
             ));
 
-        // PostRequest -> EventItem
-        //CreateMap<Models.Events.PostRequest, EventItem>();
-        //CreateMap<Models.Events.PostRequest, EventItem>().ReverseMap();
-        //CreateMap<Models.Events.PostRequest, EventItem>()
-        //    .ForMember(dest => dest.Author,
-        //        opt => opt.MapFrom(src => src.Author.Select(x =>
-        //        new ))
-
         // UpdateRequest -> EventItem
         CreateMap<Models.Events.UpdateRequest, EventItem>()
             .ForAllMembers(x => x.Condition(
