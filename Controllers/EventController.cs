@@ -10,7 +10,7 @@ using WebApi.Services;
 
 [Authorize]
 [ApiController]
-[Route("controller/event")]
+[Route("[controller]")]
 public class EventController : ControllerBase
 {
     private IEventService _eventService;
