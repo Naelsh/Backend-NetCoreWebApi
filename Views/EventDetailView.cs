@@ -1,4 +1,6 @@
-﻿namespace WebApi.Views
+﻿using WebApi.Entities;
+
+namespace WebApi.Views
 {
     public class EventDetailView
     {
@@ -7,9 +9,7 @@
         public string Description { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
-        
-        public int AuthorId { get; set; }
-        public string AuthorFirstName { get; set; }
-        public string AuthorLastName { get; set; }
+
+        public IEnumerable<EventDetailUserView> Participants { get; set; }
     }
 }
