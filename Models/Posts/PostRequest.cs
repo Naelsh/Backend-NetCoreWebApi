@@ -8,7 +8,5 @@ namespace WebApi.Models.Posts
         public string Content { get; set; }
         [Required]
         public DateTime PublishDate { get; set; }
-        [Required]
-        public int AuthorID { get; set; }
     }
 }

@@ -15,8 +15,5 @@ namespace WebApi.Models.Events
 
         [Required]
         public DateTime EndDate { get; set; }
-
-        [Required]
-        public int CreatorId { get; set; }
     }
 }

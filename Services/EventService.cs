@@ -10,7 +10,7 @@ public interface IEventService
 {
     IEnumerable<EventItem> GetAll();
     EventItem GetById(int id);
-    void Post(PostRequest model);
+    void Post(PostRequest model, object user);
     void Update(int id, UpdateRequest model);
     void Delete(int id);
     EventDetailView GetDetailById(int id);
@@ -40,13 +40,11 @@ public class EventService : IEventService
         return GetEvent(id);
     }
 
-    public void Post(PostRequest model)
+    public void Post(PostRequest model, object user)
     {
         // validate
         if (DateTime.Compare(model.StartDate, model.EndDate) > 0)
             throw new AppException("Event '" + model.Title + "' start date after end date");
-
-        var user = _context.Users.FirstOrDefault(x => x.Id == model.CreatorId);
 
         // map model to new event object
         var eventItem = new EventItem
@@ -60,7 +58,7 @@ public class EventService : IEventService
         
         var eventUser = new EventUsers
         {
-            User = user,
+            User = (User)user,
             EventItem = eventItem,
             IsHost = true
         };

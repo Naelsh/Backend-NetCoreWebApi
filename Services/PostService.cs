@@ -11,7 +11,7 @@ public interface IPostService
 {
     IEnumerable<PostItem> GetAll();
     PostItem GetById(int id);
-    void Post(PostRequest model);
+    void Post(PostRequest model, object user);
     void Update(int id, UpdateRequest model);
     void Delete(int id);
     IEnumerable<PostDetailView> GetDetailedPostsForUserById(int userId);
@@ -40,15 +40,17 @@ public class PostService : IPostService
         return GetPost(id);
     }
 
-    public void Post(PostRequest model)
+    public void Post(PostRequest model, object user)
     {
         // validate
+        if (user == null)
+            throw new ArgumentNullException("user");
         if (model.Content.Length < 1)
             throw new AppException("Post '" + model.Content + "' contains no text");
 
         // map model to new event object
         var postItem = _mapper.Map<PostItem>(model);
-        postItem.Author = _context.Users.FirstOrDefault(x => x.Id == model.AuthorID);
+        postItem.Author = (User)user;
 
         // save event
         _context.PostItems.Add(postItem);

@@ -54,7 +54,9 @@ public class PostController : ControllerBase
     [HttpPost]
     public IActionResult Post(PostRequest model)
     {
-        _postService.Post(model);
+        var context = HttpContext;
+        var user = context.Items["User"];
+        _postService.Post(model, user);
         return Ok(new { message = "Post created successfully" });
     }
 
