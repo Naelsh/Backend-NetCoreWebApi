@@ -53,8 +53,7 @@ public class EventController : ControllerBase
     [HttpPost]
     public IActionResult Post(PostRequest model)
     {
-        var context = HttpContext;
-        var user = context.Items["User"];
+        var user = HttpContext.Items["User"];
         _eventService.Post(model, user);
         return Ok(new {message = "Event created successfully"});
     }
