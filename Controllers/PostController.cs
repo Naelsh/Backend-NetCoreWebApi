@@ -8,10 +8,7 @@ using WebApi.Helpers;
 using WebApi.Models.Posts;
 using WebApi.Services;
 
-[Authorize]
-[ApiController]
-[Route("[controller]")]
-public class PostController : ControllerBase
+public class PostController : BaseController
 {
     private IPostService _postService;
     private IMapper _mapper;
@@ -54,8 +51,7 @@ public class PostController : ControllerBase
     [HttpPost]
     public IActionResult Post(PostRequest model)
     {
-        var user = HttpContext.Items["User"];
-        _postService.Post(model, user);
+        _postService.Post(model, GetAuthenticatedUser());
         return Ok(new { message = "Post created successfully" });
     }
 

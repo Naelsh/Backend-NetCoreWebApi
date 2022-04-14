@@ -8,10 +8,7 @@ using WebApi.Helpers;
 using WebApi.Models.Events;
 using WebApi.Services;
 
-[Authorize]
-[ApiController]
-[Route("[controller]")]
-public class EventController : ControllerBase
+public class EventController : BaseController
 {
     private IEventService _eventService;
     private IMapper _mapper;
@@ -53,8 +50,7 @@ public class EventController : ControllerBase
     [HttpPost]
     public IActionResult Post(PostRequest model)
     {
-        var user = HttpContext.Items["User"];
-        _eventService.Post(model, user);
+        _eventService.Post(model, GetAuthenticatedUser());
         return Ok(new {message = "Event created successfully"});
     }
 

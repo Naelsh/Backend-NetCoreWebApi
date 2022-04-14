@@ -8,10 +8,7 @@ using WebApi.Helpers;
 using WebApi.Models.Users;
 using WebApi.Services;
 
-[Authorize]
-[ApiController]
-[Route("[controller]")]
-public class UsersController : ControllerBase
+public class UsersController : BaseController
 {
     private IUserService _userService;
     private IMapper _mapper;
